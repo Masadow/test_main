@@ -1,4 +1,7 @@
 pipeline {
+    triggers {
+        pollSCM('* * * * *')
+    }
     environment {
         CI = 'true'
     }
