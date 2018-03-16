@@ -17,13 +17,15 @@ pipeline {
                 branch 'dev'
             }
             steps {
+                echo 'Dev'
             }
         }
         stage('Staging') {
             when {
-                branch 'dev'
+                branch 'staging'
             }
             steps {
+                echo 'Staging'
             }
         }
         stage('Prod') {
@@ -31,6 +33,7 @@ pipeline {
                 branch 'master'
             }
             steps {
+                echo 'Prod'
             }
         }
     }
