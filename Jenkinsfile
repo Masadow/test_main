@@ -5,32 +5,28 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                checkout scm
             }
         }
-        stage('Test') {
-            steps {
-                sh './jenkins/scripts/test.sh'
-            }
-        }
-        stage('Deliver for development') {
+        stage('Dev') {
             when {
-                branch 'development'
+                branch 'dev'
             }
             steps {
-                sh './jenkins/scripts/deliver-for-development.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
             }
         }
-        stage('Deploy for production') {
+        stage('Staging') {
             when {
-                branch 'production'
+                branch 'dev'
             }
             steps {
-                sh './jenkins/scripts/deploy-for-production.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+            }
+        }
+        stage('Prod') {
+            when {
+                branch 'master'
+            }
+            steps {
             }
         }
     }
